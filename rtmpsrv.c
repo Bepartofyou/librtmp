@@ -30,8 +30,11 @@
 #include <limits.h>
 
 #include <signal.h>
+#ifndef WIN32
 #include <getopt.h>
-
+#else 
+#include "getopt.h"
+#endif
 #include <assert.h>
 
 #include "librtmp/rtmp_sys.h"

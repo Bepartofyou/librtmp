@@ -1,0 +1,21 @@
+aux_source_directory(. SRC_LIST)
+file(GLOB LIBRTMP_HEADERS ${CMAKE_SOURCE_DIR}/*.h*)
+
+add_definitions(
+    -fPIC
+    -Wall
+    -DDEBUG
+    -DNO_CRYPTO
+    -D_CRT_SECURE_NO_WARNINGS
+    -D_WINSOCK_DEPRECATED_NO_WARNINGS
+)
+
+add_library(rtmp STATIC ${LIBRTMP_HEADERS} ${SRC_LIST})
+target_link_libraries(rtmp 
+ws2_32 winmm gdi32
+)
+install(TARGETS rtmp
+        RUNTIME DESTINATION ${CMAKE_SOURCE_DIR}/libs/bin
+        LIBRARY DESTINATION ${CMAKE_SOURCE_DIR}/libs/lib
+        ARCHIVE DESTINATION ${CMAKE_SOURCE_DIR}/libs/lib/static)
+install(FILES LIBRTMP_HEADERS DESTINATION  ${CMAKE_SOURCE_DIR}/libs/include)

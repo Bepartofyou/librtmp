@@ -28,14 +28,19 @@
 #include <stdio.h>
 
 #include <signal.h>		// to catch Ctrl-C
+#ifndef WIN32
 #include <getopt.h>
+#endif
 
 #include "librtmp/rtmp_sys.h"
 #include "librtmp/log.h"
 
 #ifdef WIN32
-#define fseeko fseeko64
-#define ftello ftello64
+#include "getopt.h"
+#define fseeko fseek
+#define ftello ftell
+// #define fseeko fseeko64
+// #define ftello ftello64
 #include <io.h>
 #include <fcntl.h>
 #define	SET_BINMODE(f)	setmode(fileno(f), O_BINARY)
@@ -66,7 +71,9 @@ InitSockets()
   return TRUE;
 #endif
 }
-
+#ifdef WIN32
+#define inline
+#endif 
 inline void
 CleanupSockets()
 {
@@ -278,8 +285,12 @@ GetLastKeyframe(FILE * file,	// output file [in]
 		int *initialFrameType,	// initial frame type (audio/video) [out]
 		uint32_t * nInitialFrameSize)	// length of initialFrame [out]
 {
+  #ifndef WIN32
   const size_t bufferSize = 16;
   char buffer[bufferSize];
+  #else
+  char buffer[16];
+  #endif
   uint8_t dataType;
   int bAudioOnly;
   off_t size;
