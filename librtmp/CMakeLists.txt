@@ -1,5 +1,5 @@
 aux_source_directory(. SRC_LIST)
-file(GLOB LIBRTMP_HEADERS ${CMAKE_SOURCE_DIR}/*.h*)
+file(GLOB LIBRTMP_HEADERS ${CMAKE_SOURCE_DIR}/librtmp/*.h*)
 
 add_definitions(
     -fPIC
