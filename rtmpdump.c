@@ -74,7 +74,7 @@ InitSockets()
 #ifdef WIN32
 #define inline
 #endif 
-inline void
+void
 CleanupSockets()
 {
 #ifdef WIN32

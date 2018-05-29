@@ -11,11 +11,20 @@ add_definitions(
 )
 
 add_library(rtmp STATIC ${LIBRTMP_HEADERS} ${SRC_LIST})
-target_link_libraries(rtmp 
-ws2_32 winmm gdi32
-)
-install(TARGETS rtmp
-        RUNTIME DESTINATION ${CMAKE_SOURCE_DIR}/libs/bin
-        LIBRARY DESTINATION ${CMAKE_SOURCE_DIR}/libs/lib
-        ARCHIVE DESTINATION ${CMAKE_SOURCE_DIR}/libs/lib/static)
-install(FILES LIBRTMP_HEADERS DESTINATION  ${CMAKE_SOURCE_DIR}/libs/include)
+
+if(MICROSOFT)
+    target_link_libraries(rtmp 
+    ws2_32 winmm gdi32
+    )
+elseif(DARWIN)  
+    #target_link_libraries(rtmp )
+elseif(LINUX)
+    #target_link_libraries(rtmp )
+else()
+    message(FATAL_ERROR "Unsupported system: ${CMAKE_SYSTEM_NAME}")
+endif()
+# install(TARGETS rtmp
+#         RUNTIME DESTINATION ${CMAKE_SOURCE_DIR}/libs/bin
+#         LIBRARY DESTINATION ${CMAKE_SOURCE_DIR}/libs/lib
+#         ARCHIVE DESTINATION ${CMAKE_SOURCE_DIR}/libs/lib/static)
+# install(FILES LIBRTMP_HEADERS DESTINATION  ${CMAKE_SOURCE_DIR}/libs/include)
