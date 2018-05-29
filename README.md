@@ -1,4 +1,4 @@
-# librtmp
+﻿# librtmp
 
 Fork from http://git.ffmpeg.org/rtmpdump integrated with srs.
 
@@ -11,3 +11,10 @@ Strongly recommend to use the [srs-librtmp](https://github.com/ossrs/srs-librtmp
 and more readable.
 
 Winlin
+
+
+
+## build 
+
+> mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Debug ../ && make
+
